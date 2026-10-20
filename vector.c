@@ -12,7 +12,7 @@
 #include "vectors.h"
 
 //static struct vector vecs[numvectors];   needs to be changed to pointer in dynamit mem
-static int size = 10; //starting size of 10 vectors
+static int size = 10; //starting size of 10 vector
 static int filled = 0; // how many are filled
 static struct vector *vecs;
 void allocate() { //when program first starts
