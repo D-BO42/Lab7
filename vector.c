@@ -1,18 +1,39 @@
 /*****************************
 * Filename : vector.c
 * Author: Dylan Bodoh
-* Description: prints out the ascii table or the dec hex and bin of a ascii char
+* Description: helper for veccalc holds methods and vectors
 * Date: 9/29/26
-* Compile: gcc -o veccalc veccalc.c
+* Compile: gcc -o veccalc veccalc.c vector.c
 */
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "vector.h"
 #include "vectors.h"
-#define numvectors 10
 
-static struct vector vecs[numvectors];
-static int filled = 0;
+//static struct vector vecs[numvectors];   needs to be changed to pointer in dynamit mem
+static int size = 10; //starting size of 10 vectors
+static int filled = 0; // how many are filled
+static struct vector *vecs;
+void allocate() { //when program first starts
+    vecs = malloc(size * sizeof(struct vector)); //10 vec array
+}
+void reallocate() { //adds 10 vectors to be used to mem
+    size += 10;
+    
+         //if realloc dosent work
+        struct vector *tptr;
+        tptr = vecs;
+        vecs = malloc(size * sizeof(struct vector));
+        for(int i = 0; i < filled; i++) {
+            vecs[i] = tptr[i];
+        }
+        free(tptr);
+}
+void quit() {
+    free(vecs);
+}
+
 int newvec(char name[8], float x, float y, float z) //adds/replaces vector in the list
 {
      
@@ -26,18 +47,20 @@ int newvec(char name[8], float x, float y, float z) //adds/replaces vector in th
             return 0; //means vector was added
         } 
     }
-    
+    if(filled == size-2) {
+        reallocate();
+    }
     //check if full otherwize add at point filled
-    if(filled < 10) {
+    //if(filled < 10) {
         strcpy(vecs[filled].name, name);
         vecs[filled].x = x;
         vecs[filled].y = y;
         vecs[filled].z = z;
         filled++;
         return 0; //vector was added
-    } else {
-        return 1; //if mem is full return 1
-    }
+    //} else {
+    //    return 1; //if mem is full return 1
+    //}
     
 }
 struct vector addvec(char v1[8], char v2[8]) { //takes name of two vectors and adds them
@@ -90,4 +113,5 @@ void printVecs() {
 void clearVecs() {
     filled = 0; //set filled to 0 so they can be overwriten.
 }
+
 

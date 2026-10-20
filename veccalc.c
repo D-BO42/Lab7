@@ -1,9 +1,9 @@
 /*****************************
 * Filename : veccalc.c
 * Author: Dylan Bodoh
-* Description: prints out the ascii table or the dec hex and bin of a ascii char
+* Description: vector calculator
 * Date: 9/29/26
-* Compile: gcc -o veccalc veccalc.c
+* Compile: gcc -o veccalc veccalc.c vector.c
 */
 #include <stdio.h>
 #include <string.h>
@@ -14,7 +14,7 @@
 int main(int argc, char *argv[]) {
     
     char input[99];
-    
+    allocate();
     if(argc > 1 && !strcmp(argv[1], "-h")) {
         printf("Vector Calculator Help\n"
         "----------------------\n\n"
@@ -77,6 +77,8 @@ int main(int argc, char *argv[]) {
             {
                 //display, quit, help
                 if(!strcmp(token1, "quit")) {
+                    //free mem
+                    quit();
                     break;
                 } else if(!strcmp(token1, "help")) {
                     printf("Vector Calculator Help\n"
