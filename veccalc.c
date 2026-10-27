@@ -192,6 +192,12 @@ int main(int argc, char *argv[]) {
         }
 
         }
+        else if(!strcmp(token1, "save"))  {
+            save(token2);
+        }
+        else if(!strcmp(token1, "load"))  {
+            load(token2);
+        }
         else
         {
             printf("bad input\n");

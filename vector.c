@@ -110,6 +110,29 @@ void printVecs() {
     }
 
 }
+void save(char filename[50]){
+    FILE *file = fopen(filename, "w");
+    if (file == NULL) {
+        perror("fopen");
+        return;
+    }
+    for(int i = 0; i < filled; i++) {
+        fprintf(file, "%s,%f,%f,%f\n", vecs[i].name, vecs[i].x, vecs[i].y, vecs[i].z);
+    }
+    fclose(file);
+}
+void load(char filename[50]){
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        perror("fopen");
+        return;
+    }
+    struct vector vec;
+    while (fscanf(file, "%19[^,],%f,%f,%f", vec.name, &vec.x, &vec.y, &vec.z) == 4){
+        newvec(vec.name, vec.x, vec.y, vec.z);
+    }
+    fclose(file);
+}
 void clearVecs() {
     filled = 0; //set filled to 0 so they can be overwriten.
 }
