@@ -9,3 +9,5 @@ struct vector getvector(char n[8]);
 struct vector scaler(float s, char v1[8]);
 void printVecs();
 void clearVecs();
+void save(char filename[50]);
+void load(char filename[50]);
